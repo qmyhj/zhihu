@@ -5,48 +5,11 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import scrapy
-import pymongo
 import pymysql
 import logging
 from twisted.enterprise import adbapi
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy.exceptions import DropItem
-
-class MyImagePipeline(ImagesPipeline):
-    def get_media_requests(self, item, info):
-        for url in item['image_urls']:
-            yield scrapy.Request(url)
-
-    def item_completed(self, results, item, info):
-        image_path = [x['path'] for ok, x in results if ok]
-        if not image_path:
-            raise DropItem('item contains no images')
-        item['image_path'] = image_path
-        return item
-
-
-
-class ZhihuPipeline(object):
-
-    def __init__(self, crawler):
-        self.mongo_uri = crawler.settings.get('MONGO_URI')
-        self.mongo_db = crawler.settings.get('MONGO_DB')
-
-    @classmethod
-    def from_crawler(cls, crawler):
-        return cls(crawler)
-
-    def open_spider(self, spider):
-        self.client = pymongo.MongoClient(host=self.mongo_uri)
-        self.db = self.client[self.mongo_db]
-
-    def close_spider(self, spider):
-        self.client.close()
-
-    def process_item(self, item, spider):
-        # self.db['user'].insert_one(dict(item))
-        self.db['user'].update({'url_token': item['url_token']}, {'$set': item}, True)
-        return item
 
 class MysqlPipeline(object):
     def __init__(self, params):

@@ -98,11 +98,7 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-IMAGES_STORE = os.path.join(BASE_URL, 'images')
 
-
-MONGO_URI = 'localhost'
-MONGO_DB = 'zhihu'
 
 PARAMS = {
     'host': 'localhost',

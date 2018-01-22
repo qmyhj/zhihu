@@ -26,15 +26,3 @@ class ZhihuItem(scrapy.Item):
         """
         values = (self['id'], self['name'], self['type'], self['url_token'], self['answer_count'], self['articles_count'], self['gender'])
         return sql.strip(), values
-
-
-class DoubanItem(scrapy.Item):
-    image_urls = scrapy.Field()
-    image_path = scrapy.Field()
-
-
-class TaobaoItem(scrapy.Item):
-    title = scrapy.Field()
-    price = scrapy.Field()
-    week_sale = scrapy.Field()
-    shops_num = scrapy.Field()

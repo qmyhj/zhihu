@@ -68,9 +68,3 @@ class RandomUserAgentMiddlewares(object):
         request.headers['User-Agent'] = self.ua.random
 
 
-class TaobaoMiddleware(object):
-
-    def process_request(self, request, spider):
-        if spider.name == 'taobao':
-            spider.browser.get(request.url)
-            return HtmlResponse(url=request.url, body=spider.browser.page_source, encoding='utf-8', request=request)
