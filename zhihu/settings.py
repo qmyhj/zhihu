@@ -112,3 +112,7 @@ PARAMS = {
     'db': 'zhihu_user',
     'charset': 'utf8'
 }
+
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+REDIS_URL = 'redis://@127.0.0.1:6379'
